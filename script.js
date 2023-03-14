@@ -1,73 +1,103 @@
 function getComputerChoice(){
     let rand=parseInt(Math.floor(Math.random()*(4-1)+1));
     switch(rand){
-        case 1:console.log("C=rock")
-        return 1;
+        case 1:return 1;
         break;        
-        case 2:console.log("C=paper");
-        return 2;
+        case 2:return 2;
         break;
-        case 3:console.log("C=scissors");
-        return 3;
+        case 3:return 3;
         break;
     }
     
 }
+let p=1;
+let Pscore=0;
+let Cscore=0;
+
+let domButton1=document.getElementById('rock');
+
+let domButton2=document.getElementById('paper');
+
+let domButton3=document.getElementById('scissors');
+
+
+
+domButton1.addEventListener('click',function(){
+    p=1;
+});
+domButton1.addEventListener('click',play);
+
+domButton2.addEventListener('click',function(){
+    p=2;
+});
+domButton2.addEventListener('click',play);
+
+domButton3.addEventListener('click',function(){
+    p=3;
+});
+domButton3.addEventListener('click',play);
+
+let result=document.getElementById("result");
+let details=document.getElementById('det');
+
+
+
 
 function play(player,computer1){
         
-        
+        console.log("playing...")
 
-        let p=1
-        switch(player.toLowerCase()){
-            case "rock": p=1
-            break;
-            case "paper": p=2
-            break;
-            case "scissors": p=3
-            break;
-        }
+        
+        player=document.getElementsByClassName('div').value;
+        
+        
+        
+        computer1=getComputerChoice();
+        
         
         if(p==computer1){
-            return "It is a Tie."
+            details.textContent="It is a Tie.";
+            result.textContent="Results: "+Pscore+" : "+Cscore;
         }
         else if(p==1 && computer1==2){
-            return "You lose.Paper covers Rock!"
+            details.textContent="You lose.Paper covers Rock!";
+            Cscore++;
+            result.textContent="Results: "+Pscore+" : "+Cscore;
         }
         else if(p==1 && computer1==3){
-            return "You win.Rock smashes Scissors!"
+            details.textContent= "You win.Rock smashes Scissors!";
+            Pscore++;
+            result.textContent="Results: "+Pscore+" : "+Cscore;
         }
         else if(p==2 && computer1==1){
-            return "You win.Paper covers Rock!"
+            details.textContent= "You win.Paper covers Rock!";
+            Pscore++;
+            result.textContent="Results: "+Pscore+" : "+Cscore;
         }
         else if(p==2 && computer1==3){
-            return "You lose.Scissors cuts Paper!"
+            details.textContent= "You lose.Scissors cuts Paper!";
+            Cscore++;
+            result.textContent="Results: "+Pscore+" : "+Cscore;
         }
         else if(p==3 && computer1==1){
-            return "You lose.Rock smashes Scissors!"
+            details.textContent= "You lose.Rock smashes Scissors!";
+            Cscore++;
+            result.textContent="Results: "+Pscore+" : "+Cscore;
         }
         else if(p==3 && computer1==2){
-            return "You lose.Scissors cuts Paper!"
+            details.textContent= "You win.Scissors cuts Paper!";
+            Pscore++;
+            result.textContent="Results: "+Pscore+" : "+Cscore;
+        }
+        if(Cscore>=5){
+            details.textContent= "Computer wins";
+            Cscore=0;
+            Pscore=0;
+        }
+        if(Pscore>=5){
+            details.textContent= "You win!";
+            Cscore=0;
+            Pscore=0;
+
         }
 } 
-function game(){
-    let Pscore=0;
-    let Cscore=0;
-    for(let i=0;i<5;i++){
-        let string1=play(prompt("Enter you Jajanken"),getComputerChoice());
-        console.log(string1.charAt(4));
-        if(string1.charAt(4)=="w"){
-            Pscore+=1;
-        }
-        else if(string1.charAt(4)=="l"){
-            Cscore+=1;
-        }
-        else console.log('no points are awarded :(');
-    }
-    if(Pscore>Cscore) console.log("PLAYER WINS");
-    else if(Pscore<Cscore) console.log("Computer wins");
-    else console.log("It's a TIE!?");
-
-}
-
-game();
